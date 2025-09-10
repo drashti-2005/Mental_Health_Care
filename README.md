@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Mental Health Care System - SIH Hackathon Project
 
 ## Overview
@@ -97,3 +98,6 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for more details.
+=======
+# Mental_Health_Care
+>>>>>>> b96a2f27f045bb51ba3e32102d9de347eeff8162

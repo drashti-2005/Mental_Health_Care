@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import connectDB from './db.js';
 // Import routes directly with a different name to debug
-import apiRoutes from './src/routes/route.js';
+import apiRoutes from './src/routes/auth.route.js';
 
 // Load environment variables
 dotenv.config();
