@@ -65,9 +65,9 @@ const LoginForm = () => {
     try {
       const response = await authAPI.login(formData);
       
-      // Save token to localStorage
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      // Save token to localStorage - fetch API returns the response body directly
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
       
       toast.current.show({
         severity: 'success',

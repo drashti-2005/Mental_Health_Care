@@ -3,7 +3,6 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import connectDB from './db.js';
-// Import routes directly with a different name to debug
 import apiRoutes from './src/routes/auth.route.js';
 
 // Load environment variables
@@ -33,29 +32,20 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes - Debug the import
-console.log('API Routes type:', typeof apiRoutes);
-console.log('API Routes value:', apiRoutes);
+// Mount all API routes under /api
+app.use('/api', apiRoutes);
 
-// Check if routes is a router object
-if (apiRoutes && typeof apiRoutes === 'function') {
-  app.use('/api', apiRoutes);
-} else {
-  // Create a simple router if the import failed
-  const fallbackRouter = express.Router();
-  fallbackRouter.get('/status', (req, res) => {
-    res.json({ status: 'API is running - fallback router' });
-  });
-  app.use('/api', fallbackRouter);
-  console.log('Using fallback router due to invalid imported routes');
-}
-
-// Add a test route as well
-const testRouter = express.Router();
-testRouter.get('/test', (req, res) => {
-  res.json({ message: 'Test route works' });
+// Add a root health check endpoint
+app.get('/', (req, res) => {
+  res.status(200).json({ status: 'Server is running', timestamp: new Date().toISOString() });
 });
-app.use('/api-test', testRouter);
+// Error handling for unhandled routes
+app.use('*', (req, res) => {
+  res.status(404).json({ 
+    message: 'Resource not found',
+    path: req.originalUrl 
+  });
+});
 
 // Health check endpoint
 app.get('/health', (req, res) => {

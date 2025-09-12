@@ -1,38 +1,11 @@
-import axios from 'axios';
+// Base URL for API requests
+const BASE_URL = import.meta.env.VITE_URL || '/api';
 
-// Create an axios instance with default config
-const api = axios.create({
-  baseURL: import.meta.env.VITE_APP_API_URL || '/api',  // Use environment variable or fall back to relative URL with Vite proxy
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true, // Required for CORS with credentials
-});
-
-// Add a request interceptor to include auth token in headers
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-// Add a response interceptor to handle common responses
-api.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    const { response } = error;
-    
-    // Handle authentication errors
-    if (response && response.status === 401) {
+// Helper function to handle API responses
+const handleResponse = async (response) => {
+  if (!response.ok) {
+    // If unauthorized, clear user session
+    if (response.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       
@@ -42,31 +15,104 @@ api.interceptors.response.use(
       }
     }
     
-    return Promise.reject(error);
+    // Try to parse error message from response
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.message || `Request failed with status ${response.status}`);
   }
-);
+  
+  return response.json();
+};
+
+// Create a request function with auth token
+const apiRequest = async (endpoint, options = {}) => {
+  const token = localStorage.getItem('token');
+  
+  const defaultHeaders = {
+    'Content-Type': 'application/json',
+  };
+  
+  if (token) {
+    defaultHeaders['Authorization'] = `Bearer ${token}`;
+  }
+  
+  const config = {
+    ...options,
+    headers: {
+      ...defaultHeaders,
+      ...options.headers
+    },
+    credentials: 'include'
+  };
+  
+  try {
+    const response = await fetch(`${BASE_URL}${endpoint}`, config);
+    return await handleResponse(response);
+  } catch (error) {
+    console.error('API request error:', error);
+    throw error;
+  }
+};
 
 // Auth APIs
 export const authAPI = {
-  register: (userData) => api.post('/auth/register', userData),
-  login: (credentials) => api.post('/auth/login', credentials),
-  forgotPassword: (email) => api.post('/auth/forgot-password', { email }),
-  resetPassword: (token, newPassword) => api.post('/auth/reset-password', { token, newPassword }),
+  register: (userData) => apiRequest('/auth/register', {
+    method: 'POST',
+    body: JSON.stringify(userData)
+  }),
+  
+  login: (credentials) => apiRequest('/auth/login', {
+    method: 'POST',
+    body: JSON.stringify(credentials)
+  }),
+  
+  forgotPassword: (email) => apiRequest('/auth/forgot-password', {
+    method: 'POST',
+    body: JSON.stringify({ email })
+  }),
+  
+  resetPassword: (token, newPassword) => apiRequest('/auth/reset-password', {
+    method: 'POST',
+    body: JSON.stringify({ token, newPassword })
+  }),
 };
 
 // User APIs
 export const userAPI = {
-  getProfile: () => api.get('/user/profile'),
-  updateProfile: (userData) => api.put('/user/profile', userData),
+  getProfile: () => apiRequest('/user/profile', {
+    method: 'GET'
+  }),
+  
+  updateProfile: (userData) => apiRequest('/user/profile', {
+    method: 'PUT',
+    body: JSON.stringify(userData)
+  }),
 };
 
 // Mental health specific APIs
 export const mentalHealthAPI = {
   // These would connect to backend endpoints for mental health features
-  saveJournal: (entry) => api.post('/mental-health/journal', entry),
-  getJournals: () => api.get('/mental-health/journal'),
-  trackMood: (moodData) => api.post('/mental-health/mood', moodData),
-  getMoodHistory: () => api.get('/mental-health/mood'),
+  saveJournal: (entry) => apiRequest('/mental-health/journal', {
+    method: 'POST',
+    body: JSON.stringify(entry)
+  }),
+  
+  getJournals: () => apiRequest('/mental-health/journal', {
+    method: 'GET'
+  }),
+  
+  trackMood: (moodData) => apiRequest('/mental-health/mood', {
+    method: 'POST',
+    body: JSON.stringify(moodData)
+  }),
+  
+  getMoodHistory: () => apiRequest('/mental-health/mood', {
+    method: 'GET'
+  }),
 };
 
-export default api;
+export default {
+  get: (endpoint) => apiRequest(endpoint, { method: 'GET' }),
+  post: (endpoint, data) => apiRequest(endpoint, { method: 'POST', body: JSON.stringify(data) }),
+  put: (endpoint, data) => apiRequest(endpoint, { method: 'PUT', body: JSON.stringify(data) }),
+  delete: (endpoint) => apiRequest(endpoint, { method: 'DELETE' })
+};

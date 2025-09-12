@@ -1,4 +1,3 @@
-// filepath: /sih-hackathon/sih-hackathon/server/src/config/index.js
 
 import dotenv from 'dotenv';
 
