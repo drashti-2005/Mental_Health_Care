@@ -7,7 +7,6 @@ import LandingPage from './pages/LandingPage';
 import Journal from './pages/Journal';
 import Resources from './pages/Resources';
 import Community from './pages/Community';
-import MentalHealthTips from './pages/MentalHealthTips';
 
 // Simple auth check
 const isLoggedIn = () => localStorage.getItem('token') !== null;
@@ -17,14 +16,13 @@ const Protected = ({ children }) => {
   return isLoggedIn() ? children : <Navigate to="/login" replace />;
 };
 
-const router = createBrowserRouter(
-  [
-    { path: '/login', element: <LoginForm /> },
-    { path: '/register', element: <RegistrationForm /> },
-    {
-      path: '/',
-      element: <Navigate to="/dashboard" replace />,
-    },
+const router = createBrowserRouter([
+  { path: '/login', element: <LoginForm /> },
+  { path: '/register', element: <RegistrationForm /> },
+  {
+    path: '/',
+    element: <Navigate to="/dashboard" replace />,
+  },
   {
     path: '/dashboard',
     element: (
@@ -66,23 +64,9 @@ const router = createBrowserRouter(
     ),
   },
   {
-    path: '/mental-health-tips',
-    element: (
-      <Protected>
-        <AppLayout>
-          <MentalHealthTips />
-        </AppLayout>
-      </Protected>
-    ),
-  },
-  {
     path: '*',
     element: <Navigate to="/dashboard" replace />,
   },
-], {
-  future: {
-    v7_startTransition: true
-  }
-});
+]);
 
 export default router;

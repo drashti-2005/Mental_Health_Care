@@ -161,7 +161,7 @@ const RegistrationForm = () => {
     <React.Fragment>
       <Divider />
       <p className="mt-2">Password must be at least 6 characters and include:</p>
-  <ul className="pl-2 ml-2 mt-0 leading-relaxed">
+      <ul className="pl-2 ml-2 mt-0 line-height-3">
         <li>At least one lowercase letter</li>
         <li>At least one uppercase letter</li>
         <li>At least one number</li>
@@ -171,37 +171,37 @@ const RegistrationForm = () => {
   );
   
   return (
-    <div className="flex justify-center items-center min-h-screen" 
+    <div className="flex justify-content-center align-items-center min-h-screen" 
          style={{ 
            backgroundImage: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
            padding: '2rem 1rem'
          }}>
       <Toast ref={toast} position="top-center" />
       
-      <div className="bg-white p-4 shadow rounded w-full lg:w-2/3 md:w-4/5 mx-auto">
+      <div className="surface-card p-4 shadow-4 border-round w-full lg:w-8 md:w-10 mx-auto">
         <div className="text-center mb-5">
-          <div className="flex items-center justify-center gap-2">
+          <div className="flex align-items-center justify-content-center gap-2">
             <i className="pi pi-heart-fill text-5xl text-primary" style={{ color: '#FF5C8D' }}></i>
-            <h2 className="text-3xl font-medium text-gray-900 mb-2">Mental Health Care</h2>
+            <h2 className="text-3xl font-medium text-900 mb-2">Mental Health Care</h2>
           </div>
-          <span className="text-gray-600 font-medium">Create your account to get started</span>
+          <span className="text-600 font-medium">Create your account to get started</span>
         </div>
         
-        <div className="flex flex-col md:flex-row">
-          <div className="w-full md:w-5 flex flex-col items-center justify-center md:pr-3 mb-4 md:mb-0">
+        <div className="flex flex-column md:flex-row">
+          <div className="w-full md:w-5 flex flex-column align-items-center justify-content-center md:pr-3 mb-4 md:mb-0">
             <div className="mb-4 hidden md:block" style={{ maxWidth: '90%' }}>
-              <Image src="https://img.freepik.com/free-vector/mental-health-awareness-concept_23-2148514643.jpg" alt="Mental Health Care" width="100%" className="rounded" />
+              <Image src="https://img.freepik.com/free-vector/mental-health-awareness-concept_23-2148514643.jpg" alt="Mental Health Care" width="100%" className="border-round" />
             </div>
             <div className="text-center hidden md:block">
               <h3 className="text-xl text-primary font-medium mb-2">Take care of your mind</h3>
-              <p className="text-gray-600 leading-relaxed">Join our community and start your journey to mental wellness today.</p>
+              <p className="text-600 line-height-3">Join our community and start your journey to mental wellness today.</p>
             </div>
           </div>
           
           <div className="w-full md:w-7">
             <form onSubmit={handleSubmit} className="p-fluid">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="col-span-1 md:col-span-2">
+              <div className="formgrid grid">
+                <div className="field col-12">
                   <label htmlFor="fullName" className="block font-medium mb-2">Full Name *</label>
                   <span className="p-input-icon-left w-full">
                     <i className="pi pi-user" />
@@ -217,7 +217,7 @@ const RegistrationForm = () => {
                   {errors.fullName && <small className="p-error">{errors.fullName}</small>}
                 </div>
                 
-                <div className="col-span-1 md:col-span-2">
+                <div className="field col-12">
                   <label htmlFor="email" className="block font-medium mb-2">Email Address *</label>
                   <span className="p-input-icon-left w-full">
                     <i className="pi pi-envelope" />
@@ -234,7 +234,7 @@ const RegistrationForm = () => {
                   {errors.email && <small className="p-error">{errors.email}</small>}
                 </div>
                 
-                <div className="col-span-1">
+                <div className="field col-12 md:col-6">
                   <label htmlFor="phoneNumber" className="block font-medium mb-2">Phone Number (Optional)</label>
                   <span className="p-input-icon-left w-full">
                     <i className="pi pi-phone" />
@@ -250,7 +250,7 @@ const RegistrationForm = () => {
                   {errors.phoneNumber && <small className="p-error">{errors.phoneNumber}</small>}
                 </div>
                 
-                <div className="col-span-1">
+                <div className="field col-12 md:col-6">
                   <label htmlFor="dateOfBirth" className="block font-medium mb-2">Date of Birth *</label>
                   <Calendar
                     id="dateOfBirth"
@@ -264,7 +264,7 @@ const RegistrationForm = () => {
                   {errors.dateOfBirth && <small className="p-error">{errors.dateOfBirth}</small>}
                 </div>
                 
-                <div className="col-span-1 md:col-span-2">
+                <div className="field col-12">
                   <label htmlFor="gender" className="block font-medium mb-2">Gender (Optional)</label>
                   <Dropdown
                     id="gender"
@@ -278,7 +278,7 @@ const RegistrationForm = () => {
                   {errors.gender && <small className="p-error">{errors.gender}</small>}
                 </div>
                 
-                <div className="col-span-1">
+                <div className="field col-12 md:col-6">
                   <label htmlFor="password" className="block font-medium mb-2">Password *</label>
                   <Password
                     id="password"
@@ -295,7 +295,7 @@ const RegistrationForm = () => {
                   {errors.password && <small className="p-error">{errors.password}</small>}
                 </div>
                 
-                <div className="col-span-1">
+                <div className="field col-12 md:col-6">
                   <label htmlFor="confirmPassword" className="block font-medium mb-2">Confirm Password *</label>
                   <Password
                     id="confirmPassword"
@@ -311,12 +311,12 @@ const RegistrationForm = () => {
                   {errors.confirmPassword && <small className="p-error">{errors.confirmPassword}</small>}
                 </div>
                 
-                <div className="col-span-1 md:col-span-2">
+                <div className="field col-12">
                   <Button
                     type="submit"
                     label={loading ? 'Creating Account...' : 'Create Account'}
                     icon="pi pi-user-plus"
-                    className="w-full"
+                    className="w-full p-button-primary"
                     style={{ background: '#7B66FF' }}
                     loading={loading}
                   />
@@ -324,7 +324,7 @@ const RegistrationForm = () => {
               </div>
               
               <div className="text-center mt-4">
-                <span className="text-gray-600 font-medium">Already have an account? </span>
+                <span className="text-600 font-medium">Already have an account? </span>
                 <Link to="/login" className="font-medium no-underline" style={{ color: '#7B66FF' }}>
                   Login
                 </Link>

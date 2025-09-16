@@ -105,7 +105,7 @@ const LoginForm = () => {
 
 	return (
 		<div
-			className="flex justify-center items-center min-h-screen"
+			className="flex justify-content-center align-items-center min-h-screen"
 			style={{
 				backgroundImage: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
 				padding: "2rem 1rem",
@@ -113,30 +113,30 @@ const LoginForm = () => {
 		>
 			<Toast ref={toast} position="top-center" />
 
-	    <div className="bg-white p-4 shadow rounded w-full lg:w-1/2 md:w-2/3 mx-auto">
+			<div className="surface-card p-4 shadow-4 border-round w-full lg:w-6 md:w-8 mx-auto">
 				<div className="text-center mb-5">
-		    <div className="flex items-center justify-center gap-2">
+					<div className="flex align-items-center justify-content-center gap-2">
 						<i
 							className="pi pi-heart-fill text-5xl"
 							style={{ color: "#FF5C8D" }}
 						></i>
-						<h2 className="text-3xl font-medium text-gray-900 mb-2">
+						<h2 className="text-3xl font-medium text-900 mb-2">
 							Mental Health Care
 						</h2>
 					</div>
-					<span className="text-gray-600 font-medium">
+					<span className="text-600 font-medium">
 						Sign in to continue your journey
 					</span>
 				</div>
 
-				<div className="flex flex-col md:flex-row">
-					<div className="w-full md:w-1/2 flex items-center justify-center md:pr-3 mb-4 md:mb-0">
+				<div className="flex flex-column md:flex-row">
+					<div className="w-full md:w-6 flex align-items-center justify-content-center md:pr-3 mb-4 md:mb-0">
 						<div className="text-center hidden md:block">
 							<Image
 								src="https://img.freepik.com/free-vector/psychotherapy-session-psychologist-patient-talking-couch-psychology-mental-therapy-with-doctor-professional-help_284092-1120.jpg"
 								alt="Mental Health Care"
 								width="100%"
-								className="rounded mb-3"
+								className="border-round mb-3"
 							/>
 							<h3
 								className="text-xl font-medium mb-2"
@@ -144,13 +144,13 @@ const LoginForm = () => {
 							>
 								Welcome Back
 							</h3>
-							<p className="text-gray-600 leading-relaxed">
+							<p className="text-600 line-height-3">
 								Your mental well-being is our priority.
 							</p>
 						</div>
 					</div>
 
-					<div className="w-full md:w-1/2">
+					<div className="w-full md:w-6">
 						<form onSubmit={handleSubmit} className="p-fluid">
 							<div className="field mb-4">
 								<label htmlFor="username" className="block font-medium mb-2">
@@ -197,7 +197,7 @@ const LoginForm = () => {
 								)}
 							</div>
 
-							<div className="flex justify-end items-center mb-4">
+							<div className="flex justify-content-end align-items-center mb-4">
 								<Link
 									to="/forgot-password"
 									className="font-medium no-underline"
@@ -217,7 +217,7 @@ const LoginForm = () => {
 							/>
 
 							<Divider align="center">
-								<span className="text-gray-600 font-medium">OR</span>
+								<span className="text-600 font-medium">OR</span>
 							</Divider>
 
 							<Button
@@ -229,7 +229,7 @@ const LoginForm = () => {
 							/>
 
 							<div className="text-center mt-3">
-								<span className="text-gray-600 font-medium">
+								<span className="text-600 font-medium">
 									Don't have an account?{" "}
 								</span>
 								<Link

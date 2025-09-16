@@ -16,21 +16,8 @@ const PORT = process.env.PORT || 5000;
 connectDB();
 
 // Middleware
-// Allow multiple dev origins (5173 default, 5174 if port is taken) and env-defined client URL
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://127.0.0.1:5173',
-  'http://localhost:5174',
-  'http://127.0.0.1:5174',
-].concat(process.env.CLIENT_URL ? [process.env.CLIENT_URL] : []);
-
 app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    return callback(new Error(`CORS blocked for origin: ${origin}`));
-  },
+  origin: 'http://localhost:5173', // Allow your client's origin
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']

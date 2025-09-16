@@ -1,6 +1,5 @@
 // Base URL for API requests
-// In dev, use Vite proxy ('/api'); in prod, allow override via VITE_URL
-const BASE_URL = import.meta.env.DEV ? '/api' : (import.meta.env.VITE_URL || '/api');
+const BASE_URL = import.meta.env.VITE_URL || '/api';
 
 // Helper function to handle API responses
 const handleResponse = async (response) => {
@@ -41,7 +40,8 @@ const apiRequest = async (endpoint, options = {}) => {
     headers: {
       ...defaultHeaders,
       ...options.headers
-  }
+    },
+    credentials: 'include'
   };
   
   try {
