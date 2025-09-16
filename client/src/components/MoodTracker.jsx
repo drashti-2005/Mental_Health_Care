@@ -23,11 +23,11 @@ const MoodTracker = ({ onMoodSelect }) => {
     };
     
     return (
-        <Card title="How are you feeling today?" className="mb-4 shadow-3 border-round">
-            <div className="flex flex-column">
-                <div className="flex justify-content-between mb-4">
+        <Card title="How are you feeling today?" className="mb-4 shadow rounded">
+            <div className="flex flex-col">
+                <div className="flex justify-between mb-4">
                     {moods.map((mood) => (
-                        <div key={mood.value} className="flex flex-column align-items-center">
+                        <div key={mood.value} className="flex flex-col items-center">
                             <span className="text-3xl mb-2">{mood.icon}</span>
                             <RadioButton 
                                 inputId={`mood-${mood.value}`}
@@ -45,12 +45,12 @@ const MoodTracker = ({ onMoodSelect }) => {
                 
                 <Button 
                     label="Save Mood" 
-                    className="align-self-center"
+                    className="self-center"
                     disabled={!selectedMood}
                     style={{ background: selectedMood ? '#7B66FF' : undefined }}
                 />
                 
-                <p className="text-center text-600 mt-3">
+                <p className="text-center text-gray-600 mt-3">
                     Tracking your mood helps you understand your emotional patterns.
                 </p>
             </div>
